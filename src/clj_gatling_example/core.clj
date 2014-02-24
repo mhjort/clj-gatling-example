@@ -1,16 +1,20 @@
 (ns clj-gatling-example.core
-  (:require [clj-gatling.core :as gatling])
+  (:require [clj-gatling.core :as gatling]
+            [org.httpkit.client :as http])
   (:gen-class))
 
-(defn run-request [id]
+(defn randomly-failing-request [id]
   (Thread/sleep (rand 1000))
   (> 0.7 (rand 1)))
 
+(defn http-request [url id]
+  (let [{:keys [status headers body error] :as resp} @(http/get url)]
+    (= 200 status)))
+
 (def test-scenario
   {:name "Test scenario"
-   :requests [{:name "Request1" :fn run-request}
-              {:name "Request2" :fn run-request}]})
+   :requests [{:name "Request1" :fn randomly-failing-request}
+              {:name "GoogleRequest" :fn (partial http-request "http://www.google.fi")}]})
 
 (defn -main [users]
   (gatling/run-simulation test-scenario (read-string users)))
-
