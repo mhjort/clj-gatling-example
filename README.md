@@ -8,7 +8,6 @@ Example project on how to create performance tests using [clj-gatling](https://g
 
 ## License
 
-Copyright © 2014 Markus Hjort
+Copyright (C) 2014 Markus Hjort
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License, the same as Clojure.
