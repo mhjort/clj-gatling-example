@@ -17,5 +17,11 @@
    :requests [{:name "Request1" :fn randomly-failing-request}
               {:name "GoogleRequest" :fn (partial http-request "http://www.google.fi")}]})
 
+
+(def test-scenario2
+  {:name "Test scenario2"
+   :requests [{:name "Request1" :fn randomly-failing-request}
+              {:name "AppleRequest" :fn (partial http-request "http://www.apple.com")}]})
+
 (defn -main [users]
-  (gatling/run-simulation test-scenario (read-string users)))
+  (gatling/run-simulation [test-scenario test-scenario2] (read-string users)))
