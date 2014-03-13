@@ -24,4 +24,4 @@
               {:name "AppleRequest" :fn (partial http-request "http://www.apple.com")}]})
 
 (defn -main [users]
-  (gatling/run-simulation [test-scenario test-scenario2] (read-string users)))
+  (gatling/run-simulation [test-scenario test-scenario2] (read-string users) {:root "tmp"}))
