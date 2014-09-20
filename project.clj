@@ -4,5 +4,5 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [clj-gatling "0.0.5"]]
+                 [clj-gatling "0.0.6"]]
   :main clj-gatling-example.core)
