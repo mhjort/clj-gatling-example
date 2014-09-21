@@ -2,10 +2,10 @@
   (:require [clj-gatling.core :as gatling])
   (:gen-class))
 
-(defn randomly-failing-request [user-id]
-  (println (str "Simulating request for user #" user-id))
-  (Thread/sleep (rand 1000))
-  (> 0.7 (rand 1)))
+(defn randomly-failing-request [user-id cb]
+  (future (println (str "Simulating request for user #" user-id))
+          (Thread/sleep (rand 1000))
+          (cb (> 0.7 (rand 1)))))
 
 (def test-scenario
   {:name "Test scenario"
