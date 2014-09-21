@@ -1,22 +1,18 @@
 (ns clj-gatling-example.core
-  (:require [clj-gatling.core :as gatling])
+  (:require [clj-gatling.core :as gatling]
+            [org.httpkit.client :as http])
   (:gen-class))
 
-(defn randomly-failing-request [user-id cb]
-  (future (println (str "Simulating request for user #" user-id))
-          (Thread/sleep (rand 1000))
-          (cb (> 0.7 (rand 1)))))
+(def base-url "http://localhost:9966/petclinic")
 
-(def test-scenario
-  {:name "Test scenario"
-   :requests [{:name "Request1" :fn randomly-failing-request}
-              {:name "GoogleRequest" :http "http://google.fi"}]})
+(defn- req [url user-id callback]
+  (let [check-status (fn [{:keys [status]}] (callback (= 200 status)))]
+    (http/get (str base-url url) {} check-status)))
 
-
-(def test-scenario2
-  {:name "Test scenario2"
-   :requests [{:name "Request1" :fn randomly-failing-request}
-              {:name "AppleRequest" :http "http://apple.com"}]})
+(def vets-scenario
+  {:name "Veterinarians scenario"
+   :requests [{:name "Front page" :fn (partial req "/")}
+              {:name "Veterinarians" :fn (partial req "/vets.html")}]})
 
 (defn -main [users]
-  (gatling/run-simulation [test-scenario test-scenario2] (read-string users) {:root "tmp"}))
+  (gatling/run-simulation [vets-scenario] (read-string users) {:root "tmp"}))
