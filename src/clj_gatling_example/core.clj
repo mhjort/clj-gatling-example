@@ -14,5 +14,5 @@
    :requests [{:name "Front page" :fn (partial req "/")}
               {:name "Veterinarians" :fn (partial req "/vets.html")}]})
 
-(defn -main [users]
-  (gatling/run-simulation [vets-scenario] (read-string users) {:root "tmp"}))
+(defn -main [users rounds]
+  (gatling/run-simulation [vets-scenario] (read-string users) {:root "tmp" :rounds (read-string rounds)}))

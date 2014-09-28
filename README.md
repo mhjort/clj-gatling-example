@@ -11,7 +11,7 @@ The tests are run against local [SpringPetClinic](https://github.com/spring-proj
 
 ## Usage
 
-  $ lein run [NUMBER_OF_SIMULTANEOUS_USERS] # e.g. lein run 50
+  $ lein run [NUMBER_OF_SIMULTANEOUS_USERS] [NUMBER_OF_ROUNDS] # e.g. lein run 50 2
 
 ## License
 
