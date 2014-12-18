@@ -15,7 +15,7 @@
    :requests [{:name "Front page" :fn (partial req "/")}
               {:name "Veterinarians" :fn (partial req "/vets.html")}]})
 
-(defn -main [users duration-in-seconds]
+(defn -main [users requests]
   (gatling/run-simulation [vets-scenario]
                           (read-string users)
-                          {:root "tmp" :duration (time/seconds (read-string duration-in-seconds))}))
+                          {:root "tmp" :requests (read-string requests)}))
