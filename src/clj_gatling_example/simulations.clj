@@ -12,23 +12,28 @@
         id (nth ids user-id)]
     (http/get (str base-url url id) {} check-status)))
 
+(def ping
+  (partial http-get "/ping"))
+
 (def ping-simulation
   [{:name "Ping scenario"
-    :requests [{:name "Ping Endpoint" :fn (partial http-get "/ping")}]}])
+    :requests [{:name "Ping Endpoint" :fn ping}]}])
 
-(def article-ids (cycle (range 100 300)))
+(def article-read
+  (partial http-get-with-ids "/metrics/article/read/" (cycle (range 100 200))))
 
-(def program-ids (cycle (range 200 500)))
+(def program-start
+  (partial http-get-with-ids "/metrics/program/start/" (cycle (range 200 400))))
 
 (def metrics-simulation
   [{:name "Article read scenario"
     :weight 2
     :requests [{:name "Article read request"
-                :fn (partial http-get-with-ids "/metrics/article/read/" article-ids)}]}
+                :fn article-read}]}
    {:name "Program start scenario"
     :weight 1
     :requests [{:name "Program start request"
-                :fn (partial http-get-with-ids "/metrics/program/start/" program-ids)}]}])
+                :fn program-start}]}])
 
 (def simulations
   {:ping ping-simulation
