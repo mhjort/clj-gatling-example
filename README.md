@@ -1,17 +1,16 @@
 # clj-gatling-example
 
 Example project on how to create performance tests using [clj-gatling](https://github.com/mhjort/clj-gatling)
-The tests are run against local [SpringPetClinic](https://github.com/spring-projects/spring-petclinic) app.
 
-## Running petclinic locally
-```
- 	git clone https://github.com/SpringSource/spring-petclinic.git
-	mvn tomcat7:run
-```
+The tests are run against simple demo server running in Heroku.
+This server is only for demo purpose and cannot handle heavy load.
+Please, use this only for testing with small number of parallel users-
 
 ## Usage
 
-  $ lein run [NUMBER_OF_SIMULTANEOUS_USERS] [NUMBER_OF_REQUESTS] # e.g. lein run 50 100
+  $ lein run [SIMULATION] [NUMBER_OF_SIMULTANEOUS_USERS] [NUMBER_OF_REQUESTS]
+
+  # e.g. lein run metrics 50 100
 
 ## License
 
