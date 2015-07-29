@@ -3,11 +3,11 @@
 
 (def base-url "http://clj-gatling-demo-server.herokuapp.com")
 
-(defn- http-get [url user-id context callback]
+(defn- http-get [url callback _]
   (let [check-status (fn [{:keys [status]}] (callback (= 200 status)))]
     (http/get (str base-url url) {} check-status)))
 
-(defn- http-get-with-ids [url ids user-id context callback]
+(defn- http-get-with-ids [url ids callback {:keys [user-id]}]
   (let [check-status (fn [{:keys [status]}] (callback (= 200 status)))
         id (nth ids user-id)]
     (http/get (str base-url url id) {} check-status)))
