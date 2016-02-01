@@ -36,5 +36,5 @@
                 :fn program-start}]}])
 
 (def simulations
-  {:ping ping-simulation
-   :metrics metrics-simulation})
+  {:ping 'clj-gatling-example.simulations/ping-simulation
+   :metrics 'clj-gatling-example.simulations/metrics-simulation})
