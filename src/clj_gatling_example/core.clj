@@ -6,7 +6,8 @@
   (:gen-class))
 
 (defn run-using-lambda [simulation users duration]
-  (rc/run-simulation simulation {:concurrency users
+  (rc/run-simulation simulation {:region "eu-west-1"
+                                 :concurrency users
                                  :bucket-name "clojider-results"
                                  :duration duration}))
 
