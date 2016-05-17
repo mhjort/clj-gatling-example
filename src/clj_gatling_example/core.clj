@@ -7,6 +7,7 @@
 (defn -main [simulation users requests]
   (let [simulation (or ((keyword simulation) simulations)
                        (throw (Exception. (str "No such simulation " simulation))))]
-    (gatling/run-simulation simulation
-                          (read-string users)
-                          {:root "tmp" :requests (read-string requests)})))
+    (gatling/run simulation
+                 {:concurrency (read-string users)
+                  :root "tmp"
+                  :requests (read-string requests)})))
