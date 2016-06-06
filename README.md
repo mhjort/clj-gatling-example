@@ -12,6 +12,10 @@ Please, use this only for testing with small number of parallel users-
 
   # e.g. lein run metrics 50 100
 
+  If you want to just generate load but skip reports you can run with option `--no-report`
+
+  $ lein run metrics 50 100 --no-report
+
 ## License
 
 Copyright (C) 2014 Markus Hjort
