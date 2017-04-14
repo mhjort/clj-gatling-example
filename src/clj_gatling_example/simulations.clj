@@ -35,6 +35,8 @@
 
 (def metrics-simulation
   {:name "Metrics simulation"
+   :pre-hook (fn [_] (println "pre-hook"))
+   :post-hook (fn [_] (println "post-hook"))
    :scenarios [{:name "Article read scenario"
                 :weight 2
                 :steps [{:name "Article read request"
