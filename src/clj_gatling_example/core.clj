@@ -13,16 +13,20 @@
 (defn -main [simulation users requests & [option]]
   (let [simulation (or ((keyword simulation) simulations)
                        (throw (Exception. (str "No such simulation " simulation))))]
-    (if (= "--no-report" option)
+    (condp = option
+      "--no-report" (gatling/run simulation
+                                 {:concurrency (read-string users)
+                                  :concurrency-distribution ramp-up-distribution
+                                  :reporter {:writer (fn [_ _ _])
+                                             :generator (fn [simulation]
+                                                          (println "Ran" simulation "without report"))}
+                                  :requests (read-string requests)})
+      "--ramp-up" (gatling/run simulation
+                               {:concurrency (read-string users)
+                                :concurrency-distribution ramp-up-distribution
+                                :root "tmp"
+                                :requests (read-string requests)})
       (gatling/run simulation
-                 {:concurrency (read-string users)
-                  :concurrency-distribution ramp-up-distribution
-                  :reporter {:writer (fn [_ _ _])
-                             :generator (fn [simulation]
-                                          (println "Ran" simulation "without report"))}
-                  :requests (read-string requests)})
-    (gatling/run simulation
-                 {:concurrency (read-string users)
-                  :concurrency-distribution ramp-up-distribution
-                  :root "tmp"
-                  :requests (read-string requests)}))))
+                   {:concurrency (read-string users)
+                    :root "tmp"
+                    :requests (read-string requests)}))))

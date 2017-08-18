@@ -16,6 +16,10 @@ Please, use this only for testing with small number of parallel users-
 
   $ lein run metrics 50 100 --no-report
 
+  If you want to ramp up slowly you can run with option `--ramp-up`
+
+  $ lein run metrics 50 100 --ramp-up
+
 ## License
 
 Copyright (C) 2014 Markus Hjort
